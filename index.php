@@ -205,50 +205,33 @@ img {vertical-align: middle;}
 
 </div>
 <h3 style="color:#841b2d;"><center>Pet Related Info</center></h3></td>
-<table cellpadding="20">
-<tr style="color:#841b2d;">
 
-<th align="center">Name</th>
-
-
-</tr>
-
-<?php
 include "db.php";
 
-$query=mysqli_query($db_con,"select* from users");
 
-while($row=mysqli_fetch_array($query))
-	{
-	?>
-	<tr style="color:#841b2d;">
+<$sql =<<<EOF
+      SELECT * from users;
+EOF;
 
-     
-      <td align="center"><?php echo $row['name'];?></td>
-	   
-
+   $ret = pg_query($db, $sql);
+   if(!$ret) {
+      echo pg_last_error($db);
+      exit;
+   } 
+   while($row = pg_fetch_row($ret)) {
       
-	   
-	   
-	 </tr>
-	<?php } 
-	?>
-	</table>
-	
-	<br>
-	<br>
-	<br>
-	<div class="footer">
-  <h2>2020 All Right Reserved</h2>
-</div>
-		
+      echo "NAME = ". $row[1] ."\n";
+      
+   }
+   echo "Operation done successfully\n";
+   pg_close($db);
+
+
+
 		</body>
 			
 </html>
 		
 		
 	
-
-
-
 
