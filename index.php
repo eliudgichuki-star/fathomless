@@ -40,24 +40,23 @@ $db = pg_connect( "$host $port $dbname $credentials"  );
 ?>
 
 
-<$sql =<<<EOF
-      SELECT * from users;
-EOF;
+$query=mysqli_query($db,"select* from users");
 
-   $ret = pg_query($db, $sql);
-   if(!$ret) {
-      echo pg_last_error($db);
-      exit;
-   } 
-   while($row = pg_fetch_row($ret)) {
+while($row=mysqli_fetch_array($query))
+	{
+	?>
+	<tr style="color:#841b2d;">
+
+     
+      <td align="center"><?php echo $row['name'];?></td>
+	   
+
       
-      echo "NAME = ". $row[1] ."\n";
-      
-   }
-   echo "Operation done successfully\n";
-   pg_close($db);
-
-
+	   
+	   
+	 </tr>
+	<?php } 
+	?>
 
 		</body>
 			
